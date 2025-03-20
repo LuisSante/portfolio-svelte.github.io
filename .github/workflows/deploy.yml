@@ -2,59 +2,47 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: main
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-  actions: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
+    branches: ["main"]
 
 jobs:
-  build:
-    name: Build
+  build_site:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4 
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "16"
-          cache: 'npm'
+          node-version: 20
+          cache: npm
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
-        run: npm run build
+      - name: build
         env:
-          NODE_ENV: production
+          BASE_PATH: "/${{ github.event.repository.name }}"
+        run: |
+          npm run build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-        with:
-          enablement: true  # Ensure GitHub Pages is enabled for the repository
-
-      - name: Upload artifact
+      - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build  # Ensure this path is correct, where the build output resides (adjust if needed)
+          path: "build/"
 
   deploy:
+    needs: build_site
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    name: Deploy
+
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
