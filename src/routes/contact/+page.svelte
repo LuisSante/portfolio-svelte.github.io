@@ -1,0 +1,15 @@
+<svelte:head>
+  <title>Contact me</title>
+</svelte:head>
+
+<div class="container-form">
+    <form action="mailto:luissante123@gmail.com" method="get">
+        <label for="email">Email:</label> <br>
+        <input name="email" type="email"> <br>
+        <label for="subject">Subject:</label> <br>
+        <input name="subject" type="text"> <br>
+        <label for="body">Body:</label> <br>
+        <textarea name="body"></textarea> <br>
+        <button>Submit</button>
+    </form>
+</div>

@@ -1,59 +1,29 @@
-<script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
-</script>
+<div class="container">
+	<h1>Luis Felipe Sante Taipe</h1>
+	<div class="description">
+		<p>Hello, my name is Luis Sante, I am 23 years old.</p>
+		<p>
+			I am from Arequipa, Peru. I studied Computer Science at the National University of San Agustín and completed my studies in 2023.
+		</p>
+		<p>
+			My areas of interest include Artificial Intelligence, Machine Learning, Deep Learning, Data Science, Natural Language Processing (NLP) and Computer Vision.
+		</p>
+	</div>
+	<img src="./images/perfil.jpeg" alt="Foto de perfil de Luis Sante"/>
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
+	<div class="skills">
+		<h2>Technical Skills</h2>
+		<ul>
+			<li>🧠 Artificial Intelligence</li>
+			<li>📊 Machine Learning</li>
+			<li>🖥️ Deep Learning</li>
+			<li>📝 Natural Language Processing (NLP)</li>
+			<li>📷 Computer Vision</li>
+		</ul>
+	</div>
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>
+	<div class="portfolio">
+		<p>If you want to see my experience, you can visit my portfolio:</p>
+		<a href="https://portofolio-artificial-intelligence.vercel.app/" target="_blank">My portfolio</a>
+	</div>
+</div> 

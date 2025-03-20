@@ -2,11 +2,16 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<link rel="stylesheet" href="%sveltekit.assets%/styles.css" />
+		<script src="%sveltekit.assets%/global.js" type="module"></script>
 		%sveltekit.head%
+		<title>Mi Sitio en Svelte</title>
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
+		<div>
+			%sveltekit.body%
+		</div>
 	</body>
 </html>
