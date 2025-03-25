@@ -22,7 +22,7 @@ jobs:
 
       - name: build
         env:
-          BASE_PATH: 'https://luissante.github.io/portfolio-svelte.github.io/'
+          BASE_PATH: "https://luissante.github.io/portfolio-svelte.github.io/"
         run: |
           npm run build
 
