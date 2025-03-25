@@ -10,4 +10,6 @@ const config = {
 	},
 };
 
+console.log(process.env.BASE_PATH);
+
 export default config;
