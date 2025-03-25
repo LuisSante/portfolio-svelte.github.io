@@ -63,4 +63,4 @@ header.appendChild(nav);
 
 document.body.prepend(nav);
 
-console.log(nav);
+console.log(window.location.href);
