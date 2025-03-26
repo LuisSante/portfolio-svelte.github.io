@@ -61,6 +61,6 @@ nav.appendChild(logoDiv);
 nav.appendChild(ul);
 header.appendChild(nav);
 
-document.body.prepend(nav);
+//document.body.prepend(nav);
 
 console.log(window.location.href);
