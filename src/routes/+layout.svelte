@@ -1,6 +1,5 @@
 <script>
 	import Header from '../components/Header.svelte'
-	import './styles.css';
 </script>
 
 <div class="app">
@@ -8,7 +7,6 @@
 	<main>
 		<slot />
 	</main>
-
 	<footer>
 		<p>visit to learn with Luis Sante</p>
 	</footer>
