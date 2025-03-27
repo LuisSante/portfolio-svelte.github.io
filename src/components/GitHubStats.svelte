@@ -2,6 +2,8 @@
   export let username;
   let user = null;
   let error = null;
+  const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
+  console.log("GitHub Token:", GITHUB_TOKEN);
   console.log("Username:", username);
 
   async function fetchGitHubData() {

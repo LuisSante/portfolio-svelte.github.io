@@ -31,7 +31,11 @@
   </div>
 
   <div>
-    <GitHubStats username={username} /> 
+    <h2> ================= SECTION BUILDING ================ </h2>
+    <div>
+      <GitHubStats username={username} /> 
+    </div>
+    <h2> =================================================== </h2>
   </div>
   
   <div class="portfolio">
