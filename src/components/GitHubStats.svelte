@@ -3,8 +3,8 @@
   let user = null;
   let error = null;
   const TOKEN_API = import.meta.env.TOKEN_API;
-  console.log("GitHub Token:", TOKEN_API);
-  console.log("Username:", username);
+  //console.log("GitHub Token:", TOKEN_API);
+  //console.log("Username:", username);
 
   async function fetchGitHubData() {
     console.log("Username:", username);
