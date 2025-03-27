@@ -7,6 +7,6 @@ dotenv.config();
 export default defineConfig({
 	plugins: [sveltekit()],
 	define: {
-		'import.meta.env.GITHUB_TOKEN': JSON.stringify(process.env.GITHUB_TOKEN)
+		'import.meta.env.TOKEN_API': JSON.stringify(process.env.TOKEN_API)
 	}
 });

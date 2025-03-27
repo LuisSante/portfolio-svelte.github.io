@@ -2,8 +2,8 @@
   export let username;
   let user = null;
   let error = null;
-  const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
-  console.log("GitHub Token:", GITHUB_TOKEN);
+  const TOKEN_API = import.meta.env.TOKEN_API;
+  console.log("GitHub Token:", TOKEN_API);
   console.log("Username:", username);
 
   async function fetchGitHubData() {
@@ -11,7 +11,7 @@
     try {
       const response = await fetch(`https://api.github.com/users/${username}`, {
         headers: {
-          Authorization: `token ${GITHUB_TOKEN}`,
+          Authorization: `token ${TOKEN_API}`,
         },
       });
 
