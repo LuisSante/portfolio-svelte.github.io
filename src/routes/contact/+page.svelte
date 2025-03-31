@@ -62,12 +62,4 @@ textarea {
   min-height: 120px;
 }
 
-button[type="submit"] {
-  background-color: var(--primary);
-  margin-top: 1rem;
-  padding: 0.8rem 1.5rem;
-  font-weight: 600;
-  box-shadow: 0 4px 6px rgba(58, 134, 255, 0.2);
-}
-
 </style>

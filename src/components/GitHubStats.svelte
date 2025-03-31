@@ -71,23 +71,6 @@
 {/if}
 
 <style>
-  /* GitHub stats section */
-.github-stats {
-  background-color: var(--card-bg);
-  padding: 2rem;
-  border-radius: 12px;
-  margin: 2rem 0;
-  box-shadow: 0 5px 15px var(--shadow);
-}
-
-.github-stats img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1rem;
-}
-
 .github-stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

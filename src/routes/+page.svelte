@@ -68,20 +68,12 @@
 </div>
 
 <style>
-  /* Modern container with max-width */
-.container,
-.container-sm {
+.container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
 }
-
-.container-sm {
-  max-width: 800px;
-}
-
-/* Cards for content sections */
 .card {
   background-color: var(--card-bg);
   border-radius: 12px;
@@ -151,7 +143,6 @@
   background-color: rgba(var(--primary-rgb, 58, 134, 255), 0.05);
 }
 
-.skill-item i,
 .skill-item span {
   font-size: 1.1rem;
 }
@@ -164,22 +155,6 @@
   margin: 2rem 0;
   box-shadow: 0 5px 15px var(--shadow);
 }
-
-.github-stats img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1rem;
-}
-
-.github-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
 
 /* Portfolio link */
 .portfolio {
