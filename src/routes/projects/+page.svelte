@@ -1,13 +1,46 @@
 <script>
   import projects from "$lib/projects.json";
+  import Pie from "../../components/Pie.svelte";
+  import * as d3 from "d3";
+
+  let query = "";
+  let selectedYearIndex = -1;
+  
+  $: filteredProjects = projects.filter(project => {
+    let values = Object.values(project).join("\n").toLowerCase();
+    return values.includes(query.toLowerCase());
+  });
+
+  let pieData;
+  $: {
+    let rolledData = d3.rollups(filteredProjects, v => v.length, d => d.year);
+    pieData = rolledData.map(([year, count]) => ({ value: count, label: year }));
+  }
+
+  let selectedYear;
+  $: selectedYear = selectedYearIndex > -1 ? pieData[selectedYearIndex].label : null;
+
+  $: filteredByYear = filteredProjects.filter(project => {
+    if (selectedYear) return project.year === selectedYear;
+    return true;
+  });
 </script>
 
 <svelte:head>
   <title>My Projects</title>
 </svelte:head>
 
+<input
+  type="search"
+  bind:value={query}
+  aria-label="Search projects"
+  placeholder="🔍 Search projects..."
+/>
+<div class="pie-chart">
+  <Pie data={pieData} />
+</div>
 <div class="container-projects">
-  {#each projects as p}
+  {#each filteredByYear as p}
     <article class="project-card">
       <img src={p.image} alt={p.title} class="project-image" />
       <div class="project-info">
