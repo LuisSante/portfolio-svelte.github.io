@@ -2,6 +2,7 @@
   import * as d3 from "d3";
   import { onMount } from "svelte";
   import { computePosition, autoPlacement, offset } from "@floating-ui/dom";
+  import Bar from "../../components/Bar.svelte";
 
   let data = [];
   let commits = [];
@@ -11,6 +12,7 @@
   let yAxisGridlines;
   let hoveredIndex = -1;
   let tooltipEl;
+  let clickedCommits = [];
 
   let margin = { top: 10, right: 10, bottom: 30, left: 20 };
   let usableArea = {
@@ -101,9 +103,29 @@
 
   $: hoveredCommit = commits[hoveredIndex] ?? {};
   $: console.log("Hovered commit", hoveredCommit);
-  $: rScale = d3.scaleLinear()
-                .domain(d3.extent(commits.map(d=>d.totalLines)))
-                .range([2, 60]);
+  $: rScale = d3
+    .scaleLinear()
+    .domain(d3.extent(commits.map((d) => d.totalLines)))
+    .range([2, 60]);
+
+  /********************* CHART BAR **************************************/
+  $: allTypes = Array.from(new Set(data.map((d) => d.type)));
+  $: selectedLines = (
+    clickedCommits.length > 0 ? clickedCommits : commits
+  ).flatMap((d) => d.lines);
+
+  // Conts LOCS
+  $: selectedCounts = d3.rollup(
+    selectedLines,
+    (v) => v.length,
+    (d) => d.type
+  );
+
+  $: languageBreakdown = allTypes.map((type) => [
+    type,
+    selectedCounts.get(type) || 0,
+  ]);
+  /************************************************************************/
 
   function handleMouseMove(event) {
     if (tooltipEl) {
@@ -120,13 +142,17 @@
 
       tooltipPosition = await computePosition(hoveredDot, commitTooltip, {
         strategy: "fixed",
-        middleware: [
-          offset(10), // puedes ajustar este valor
-          autoPlacement(),
-        ],
+        middleware: [offset(10), autoPlacement()],
       });
     } else if (evt.type === "mouseleave") {
       hoveredIndex = -1;
+    } else if (evt.type === "click") {
+      let commit = commits[index];
+      if (!clickedCommits.includes(commit)) {
+        clickedCommits = [...clickedCommits, commit];
+      } else {
+        clickedCommits = clickedCommits.filter((c) => c !== commit);
+      }
     }
   }
 </script>
@@ -149,9 +175,11 @@
         <circle
           on:mouseenter={(e) => dotInteraction(index, e)}
           on:mouseleave={(e) => dotInteraction(index, e)}
+          on:click={(evt) => dotInteraction(index, evt)}
+          class:selected={clickedCommits.includes(commit)}
           cx={xScale(commit.datetime)}
           cy={yScale(commit.hourFrac)}
-          r={ rScale(commit.totalLines) }
+          r={rScale(commit.totalLines)}
           fill="steelblue"
           fill-opacity="0.5"
         />
@@ -188,6 +216,7 @@
     <dt>Time</dt>
     <dd>{hoveredCommit.time}</dd>
   </dl>
+  <Bar data={languageBreakdown} {width} />
 </section>
 
 <style>
@@ -268,7 +297,9 @@
     left: 1em;
     pointer-events: none;
     z-index: 999;
-    transition: top 0.15s ease, left 0.15s ease;
+    transition:
+      top 0.15s ease,
+      left 0.15s ease;
   }
 
   .info {
@@ -292,5 +323,10 @@
     position: fixed;
     top: 1em;
     left: 1em;
+  }
+  .selected {
+    fill: var(--color-accent);
+    stroke: black;
+    stroke-width: 1.5;
   }
 </style>
