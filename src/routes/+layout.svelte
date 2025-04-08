@@ -7,9 +7,6 @@
 	<main>
 		<slot />
 	</main>
-	<footer>
-		<p>visit to learn with Luis Sante</p>
-	</footer>
 </div>
 
 <style>

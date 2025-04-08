@@ -41,6 +41,9 @@
         <a href="{base}/contact" class:active={isActive("/contact")}>Contact</a>
       </li>
       <li>
+        <a href="{base}/meta" class:active={isActive("/meta")}>Meta</a>
+      </li>
+      <li>
         <a href="https://github.com/LuisSante/" target="_blank" rel="noopener"
           >GitHub</a
         >
