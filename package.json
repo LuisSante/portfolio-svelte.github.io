@@ -4,7 +4,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"prebuild": "npx elocuent -d static,src -o static/loc.csv",
+		"prebuild": "npx elocuent -d static,src -o static/locs.csv",
 		"preview": "vite preview"
 	},
 	"devDependencies": {
