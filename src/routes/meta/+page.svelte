@@ -98,11 +98,11 @@
     <h2>Summary</h2>
     <dl class="stats">
       <dt>Total <abbr title="Lines of code">LOC</abbr></dt>
-      <dd>{data.length}</dd>
+      <dd>{filteredLines.length}</dd>
       <dt>Files</dt>
-      <dd>{d3.groups(data, (d) => d.file).length}</dd>
+      <dd>{d3.groups(filteredLines, (d) => d.file).length}</dd>
       <dt>Commits</dt>
-      <dd>{d3.groups(data, (d) => d.commit).length}</dd>
+      <dd>{d3.groups(filteredLines, (d) => d.commit).length}</dd>
     </dl>
   </div>
   <div class="slider-container">

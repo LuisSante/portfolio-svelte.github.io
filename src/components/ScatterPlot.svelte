@@ -1,6 +1,5 @@
 <script>
   import * as d3 from "d3";
-  import { onMount } from "svelte";
   import { computePosition, autoPlacement, offset } from "@floating-ui/dom";
 
   export let commits = [];
