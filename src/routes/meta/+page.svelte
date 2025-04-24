@@ -36,7 +36,7 @@
     }
 
     // tu lógica normal con d3.csv
-    data = await d3.csv("/locs.csv", (row) => ({
+    data = await d3.csv("./locs.csv", (row) => ({
       ...row,
       line: Number(row.line),
       depth: Number(row.depth),
