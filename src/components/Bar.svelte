@@ -3,7 +3,7 @@
     export let width = 600;
     const barHeight = 30;
     const barSpacing = 10;
-    const height = data.length * (barHeight + barSpacing) + 100;
+    const height = data.length * (barHeight + barSpacing) + 300;
   
     const colorMap = {
       js: "#597bbf",
