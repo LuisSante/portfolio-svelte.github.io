@@ -2,7 +2,7 @@
   import * as d3 from "d3";
   import { onMount } from "svelte";
   import Bar from "../../components/Bar.svelte";
-  import ScatterPlot from "../../components/ScatterPlot.svelte"
+  import ScatterPlot from "../../components/ScatterPlot.svelte";
 
   let data = [];
   let commits = [];
@@ -12,9 +12,33 @@
   let commitProgress = 100;
 
   onMount(async () => {
-    data = await d3.csv("./locs.csv", (row) => ({
+    let ready = false;
+    let retries = 5;
+
+    while (!ready && retries > 0) {
+      try {
+        const res = await fetch("./locs.csv");
+        if (res.ok) {
+          ready = true;
+        } else {
+          throw new Error("CSV not ready");
+        }
+      } catch (err) {
+        console.log("Waiting CSV...", retries);
+        retries--;
+        await new Promise((r) => setTimeout(r, 2000));
+      }
+    }
+
+    if (!ready) {
+      console.error("CSV no disponible después de varios intentos.");
+      return;
+    }
+
+    // tu lógica normal con d3.csv
+    data = await d3.csv("/locs.csv", (row) => ({
       ...row,
-      line: Number(row.line), // or just +row.line
+      line: Number(row.line),
       depth: Number(row.depth),
       length: Number(row.length),
       date: new Date(row.date + "T00:00" + row.timezone),
@@ -28,9 +52,7 @@
         let { author, date, time, timezone, datetime } = first;
         let ret = {
           id: commit,
-          url:
-            "https://github.com/LuisSante/portfolio-svelte.github.io/commit/" +
-            commit,
+          url: `https://github.com/LuisSante/portfolio-svelte.github.io/commit/${commit}`,
           author,
           date,
           time,
