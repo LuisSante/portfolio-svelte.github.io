@@ -5,7 +5,8 @@
 		"dev": "vite dev",
 		"prebuild": "npx elocuent -d static,src -o static/locs.csv",
 		"build": "vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"fluence": "npm run build && npm run preview"
 	},
 	"devDependencies": {
 		"@fontsource/fira-mono": "^4.5.10",

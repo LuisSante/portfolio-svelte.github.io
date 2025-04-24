@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import Bar from "../../components/Bar.svelte";
   import ScatterPlot from "../../components/ScatterPlot.svelte"
+  import { base } from "$app/paths";
 
   let data = [];
   let commits = [];
@@ -12,7 +13,7 @@
   let commitProgress = 100;
 
   onMount(async () => {
-    data = await d3.csv("./locs.csv", (row) => ({
+    data = await d3.csv(base + "/locs.csv", (row) => ({
       ...row,
       line: Number(row.line), // or just +row.line
       depth: Number(row.depth), 
