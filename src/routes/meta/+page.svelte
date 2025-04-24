@@ -12,7 +12,7 @@
   let commitProgress = 100;
 
   onMount(async () => {
-    data = await d3.csv("/locs.csv", (row) => ({
+    data = await d3.csv("portfolio-svelte.github.io/locs.csv", (row) => ({
       ...row,
       line: Number(row.line), // or just +row.line
       depth: Number(row.depth),
