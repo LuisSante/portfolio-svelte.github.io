@@ -12,10 +12,10 @@
   let commitProgress = 100;
 
   onMount(async () => {
-    data = await d3.csv("/locs.csv", (row) => ({
+    data = await d3.csv("./locs.csv", (row) => ({
       ...row,
       line: Number(row.line), // or just +row.line
-      depth: Number(row.depth),
+      depth: Number(row.depth), 
       length: Number(row.length),
       date: new Date(row.date + "T00:00" + row.timezone),
       datetime: new Date(row.datetime),
