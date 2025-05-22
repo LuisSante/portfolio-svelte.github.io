@@ -2,22 +2,22 @@
   import * as d3 from "d3";
   import { onMount } from "svelte";
   import Bar from "../../components/Bar.svelte";
-  import ScatterPlot from "../../components/ScatterPlot.svelte"
+  import ScatterPlot from "../../components/ScatterPlot.svelte";
+  import FileLines from "../../components/FileLines.svelte";
   import { base } from "$app/paths";
 
   let data = [];
   let commits = [];
-  let width = 1000,
-    height = 600;
+  let width = 1000, height = 600;
   let clickedCommits = [];
   let commitProgress = 100;
 
   onMount(async () => {
     data = await d3.csv(base + "/locs.csv", (row) => ({
       ...row,
-      line: Number(row.line), // or just +row.line
-      depth: Number(row.depth), 
-      length: Number(row.length),
+      line: +row.line,
+      depth: +row.depth,
+      length: +row.length,
       date: new Date(row.date + "T00:00" + row.timezone),
       datetime: new Date(row.datetime),
     }));
@@ -29,9 +29,7 @@
         let { author, date, time, timezone, datetime } = first;
         let ret = {
           id: commit,
-          url:
-            "https://github.com/LuisSante/portfolio-svelte.github.io/commit/" +
-            commit,
+          url: "https://github.com/LuisSante/portfolio-svelte.github.io/commit/" + commit,
           author,
           date,
           time,
@@ -55,27 +53,23 @@
   });
 
   /************************************************************************/
-  $: timeScale = d3.scaleTime().domain([minDate, maxDate]).range([0, 100]);
-  $: commitMaxTime = timeScale.invert(commitProgress);
-
-  $: filteredCommits = commits.filter(
-    (commit) => commit.datetime <= commitMaxTime
-  );
-  $: filteredLines = data.filter((d) => d.datetime <= commitMaxTime);
-
-  $: minFilteredDate = d3.min(filteredCommits, (d) => d.date);
-  $: maxFilteredDate = d3.max(filteredCommits, (d) => d.date);
-  $: maxFilteredDatePlusOne = new Date(maxFilteredDate);
-  $: maxFilteredDatePlusOne.setDate(maxFilteredDatePlusOne.getDate() + 1);
-
-  /************************************************************************/
-
   $: minDate = d3.min(commits.map((d) => d.date));
   $: maxDate = d3.max(commits.map((d) => d.date));
   $: maxDatePlusOne = new Date(maxDate);
   $: maxDatePlusOne.setDate(maxDatePlusOne.getDate() + 1);
 
-  /********************* CHART BAR **************************************/
+  $: timeScale = d3.scaleTime().domain([minDate, maxDate]).range([0, 100]);
+  $: commitMaxTime = timeScale.invert(commitProgress);
+
+  $: filteredCommits = commits.filter(commit => commit.datetime <= commitMaxTime);
+  $: filteredLines = data.filter(d => d.datetime <= commitMaxTime);
+
+  $: minFilteredDate = d3.min(filteredCommits, d => d.date);
+  $: maxFilteredDate = d3.max(filteredCommits, d => d.date);
+  $: maxFilteredDatePlusOne = new Date(maxFilteredDate);
+  $: maxFilteredDatePlusOne.setDate(maxFilteredDatePlusOne.getDate() + 1);
+
+  /************************************************************************/
   $: allTypes = Array.from(new Set(filteredLines.map((d) => d.type)));
   $: selectedLines = (
     clickedCommits.length > 0 ? clickedCommits : filteredCommits
@@ -91,7 +85,6 @@
     type,
     selectedCounts.get(type) || 0,
   ]);
-  /************************************************************************/
 </script>
 
 <section class="container">
@@ -120,6 +113,7 @@
     </div>
     <time class="time-label">{commitMaxTime.toLocaleString()}</time>
   </div>
+  <FileLines lines={filteredLines} {width} />
   <ScatterPlot
     {data}
     {commits}
@@ -131,6 +125,7 @@
     {minFilteredDate}
     {maxFilteredDatePlusOne}
   />
+
   <Bar data={languageBreakdown} {width} />
 </section>
 

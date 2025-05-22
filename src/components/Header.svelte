@@ -44,6 +44,9 @@
         <a href="{base}/meta" class:active={isActive("/meta")}>Meta</a>
       </li>
       <li>
+        <a href="{base}/meta2" class:active={isActive("/meta2")}>Meta2</a>
+      </li>
+      <li>
         <a href="https://github.com/LuisSante/" target="_blank" rel="noopener"
           >GitHub</a
         >
